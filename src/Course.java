@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Course {
 
     private String code;
@@ -20,6 +22,19 @@ public class Course {
 
     public int getCredit() {
         return credit;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Course)) return false;
+        Course course = (Course) o;
+        return Objects.equals(code, course.code);
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(code);
     }
 
 }
