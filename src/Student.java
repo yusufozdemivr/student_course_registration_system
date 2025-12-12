@@ -32,7 +32,18 @@ public class Student {
         return registeredCourses;
     }
 
-    public double calculateTuition() {
-        return 1000.0;
+    protected int getTotalCredits() {
+        int sum = 0;
+        for (Course c : registeredCourses) {
+            sum += c.getCredit();
+        }
+        return sum;
     }
+
+    public double calculateTuition() {
+        double baseFee = 500.0;
+        double feePerCredit = 100.0;
+        return baseFee + getTotalCredits() * feePerCredit;
+    }
+
 }
