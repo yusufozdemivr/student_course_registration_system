@@ -21,10 +21,19 @@ public class Student {
     }
 
     public void registerCourse(Course course) {
+        if (course == null) {
+            throw new IllegalArgumentException("Course cannot be null.");
+        }
+        if (registeredCourses.contains(course)) {
+            throw new IllegalStateException("Student is already registered to this course: " + course.getCode());
+        }
         registeredCourses.add(course);
     }
 
     public void dropCourse(Course course) {
+        if (course == null) {
+            throw new IllegalArgumentException("Course cannot be null.");
+        }
         registeredCourses.remove(course);
     }
 
