@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Student {
+public class Student implements Registrable {
 
     private String id;
     private String name;
