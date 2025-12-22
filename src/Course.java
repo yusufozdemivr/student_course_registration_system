@@ -37,4 +37,9 @@ public class Course {
         return Objects.hash(code);
     }
 
+    @Override
+    public String toString() {
+        return code + " - " + name + " (" + credit + " cr)";
+    }
+
 }
