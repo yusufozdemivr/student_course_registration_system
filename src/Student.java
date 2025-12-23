@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Student implements Registrable {
 
@@ -10,6 +11,12 @@ public class Student implements Registrable {
     private final List<Registration> registrations = new ArrayList<>();
 
     public Student(String id, String name) {
+        if (id == null || id.isBlank()) {
+            throw new IllegalArgumentException("Student id cannot be null/blank.");
+        }
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Student name cannot be null/blank.");
+        }
         this.id = id;
         this.name = name;
     }
@@ -23,12 +30,15 @@ public class Student implements Registrable {
             throw new IllegalArgumentException("Course cannot be null.");
         }
 
-        Registration reg = new Registration(this, course);
-        if (registrations.contains(reg)) {
-            throw new IllegalStateException("Student is already registered to this course: " + course.getCode());
+        Registration registration = new Registration(this, course);
+
+        if (registrations.contains(registration)) {
+            throw new IllegalStateException(
+                    "Student is already registered to this course: " + course.getCode()
+            );
         }
 
-        registrations.add(reg);
+        registrations.add(registration);
     }
 
     @Override
@@ -37,8 +47,8 @@ public class Student implements Registrable {
             throw new IllegalArgumentException("Course cannot be null.");
         }
 
-        Registration reg = new Registration(this, course);
-        boolean removed = registrations.remove(reg);
+        Registration registration = new Registration(this, course);
+        boolean removed = registrations.remove(registration);
 
 
         if (!removed) throw new IllegalStateException("Course not found: " + course.getCode());
@@ -66,4 +76,21 @@ public class Student implements Registrable {
         return baseFee + getTotalCredits() * feePerCredit;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Student)) return false;
+        Student student = (Student) o;
+        return Objects.equals(id, student.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return name + " (" + id + ")";
+    }
 }
