@@ -7,8 +7,13 @@ public class Main {
         Course c2 = new Course("BLML102", "Nesne tabanli pgramlama", 5);
 
         CourseCatalog catalog = new CourseCatalog();
-        catalog.addCourse(c1);
-        catalog.addCourse(c2);
+
+        Instructor i1 = new Instructor("I01", "Ahmet Hoca");
+        Instructor i2 = new Instructor("I02", "Mehmet Hoca");
+
+        catalog.addCourse(c1, i1);
+        catalog.addCourse(c2, i2);
+
 
         Student s1 = new Student("S1", "Yusuf");
         GraduateStudent g1 = new GraduateStudent("S2", "Ahmet");

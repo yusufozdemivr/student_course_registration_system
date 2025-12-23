@@ -6,6 +6,8 @@ public class Course {
     private String name;
     private int credit;
 
+    private Instructor instructor;
+
     public Course(String code, String name, int credit) {
         this.code = code;
         this.name = name;
@@ -24,6 +26,17 @@ public class Course {
         return credit;
     }
 
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(Instructor instructor) {
+        if (instructor == null) {
+            throw new IllegalArgumentException("instructor cannot be null");
+        }
+        this.instructor = instructor;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,6 +52,7 @@ public class Course {
 
     @Override
     public String toString() {
+        String ins = (instructor == null) ? "UNASSIGNED" : instructor.getName();
         return code + " - " + name + " (" + credit + " cr)";
     }
 

@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Instructor {
 
     private final String id;
@@ -12,6 +14,19 @@ public class Instructor {
         }
         this.id = id;
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Instructor)) return false;
+        Instructor that = (Instructor) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     public String getId() { return id; }
