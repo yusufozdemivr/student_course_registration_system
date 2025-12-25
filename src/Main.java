@@ -26,6 +26,8 @@ public class Main {
                     case "2" -> instructorMenu();
                     case "3" -> courseMenu();
                     case "0" -> {
+                        ReportWriter.writeReport(studentsById, coursesByCode, instructorsById);
+                        System.out.println("Rapor olusturuldu: ogrenci_kayit_raporu.txt");
                         System.out.println("Cikis yapiliyor...");
                         return;
                     }

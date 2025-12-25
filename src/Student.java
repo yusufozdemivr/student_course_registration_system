@@ -123,6 +123,19 @@ public class Student implements Registrable {
         registrations.get(idx).setGradePoint(gradePoint);
     }
 
+    public Double getGradePointOf(Course course) {
+        if (course == null) {
+            throw new IllegalArgumentException("Ders kismi bos olamaz.");
+        }
+
+        Registration key = new Registration(this, course);
+        int idx = registrations.indexOf(key);
+        if (idx < 0) {
+            return null;
+        }
+        return registrations.get(idx).getGradePoint();
+    }
+
 
     @Override
     public boolean equals(Object o) {
