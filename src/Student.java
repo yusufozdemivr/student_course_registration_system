@@ -12,10 +12,10 @@ public class Student implements Registrable {
 
     public Student(String id, String name) {
         if (id == null || id.isBlank()) {
-            throw new IllegalArgumentException("Student id cannot be null/blank.");
+            throw new IllegalArgumentException("Ogrenci ID numarasi bos birakilamaz.");
         }
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Student name cannot be null/blank.");
+            throw new IllegalArgumentException("Ogrenci adi bos birakilamaz.");
         }
         this.id = id;
         this.name = name;
@@ -27,14 +27,29 @@ public class Student implements Registrable {
     @Override
     public void registerCourse(Course course) {
         if (course == null) {
-            throw new IllegalArgumentException("Course cannot be null.");
+            throw new IllegalArgumentException("Ders secimi bos olamaz. Lutfen ders ismi giriniz. ");
         }
+
+        if (course.getTimeSlot() == null) {
+            throw new IllegalArgumentException("Ders icin gerekli zaman araligi bos olamaz. " + course.getCode());
+        }
+
+        for (Registration r : registrations) {
+            Course existing = r.getCourse();
+
+            if(existing.getTimeSlot() == null) continue;
+
+            if (existing.getTimeSlot().conflictsWith(course.getTimeSlot())) {
+                throw new IllegalArgumentException("Derslerin zamani cakisiyor. " + course.getCode() + " ve " + existing.getCode());
+            }
+        }
+
 
         Registration registration = new Registration(this, course);
 
         if (registrations.contains(registration)) {
             throw new IllegalStateException(
-                    "Student is already registered to this course: " + course.getCode()
+                    "Ogrenci zaten bu derse kayitli: " + course.getCode()
             );
         }
 
@@ -44,14 +59,14 @@ public class Student implements Registrable {
     @Override
     public void dropCourse(Course course) {
         if (course == null) {
-            throw new IllegalArgumentException("Course cannot be null.");
+            throw new IllegalArgumentException("Ders kismi bos olamaz. Lutfen ders ismi giriniz. ");
         }
 
         Registration registration = new Registration(this, course);
         boolean removed = registrations.remove(registration);
 
 
-        if (!removed) throw new IllegalStateException("Course not found: " + course.getCode());
+        if (!removed) throw new IllegalStateException("Gerekli ders bulunamadi. " + course.getCode());
     }
 
     public List<Course> getRegisteredCourses() {
@@ -95,14 +110,14 @@ public class Student implements Registrable {
 
     public void setGradePoint(Course course, double gradePoint) {
         if (course == null) {
-            throw new IllegalArgumentException("Course cannot be null.");
+            throw new IllegalArgumentException("Ders secimi bos olamaz, lutfen gerekli dersi sisteme isleyiniz. ");
         }
 
         Registration key = new Registration(this, course);
         int idx = registrations.indexOf(key);
 
         if (idx < 0) {
-            throw new IllegalStateException("Student is not registered to this course: " + course.getCode());
+            throw new IllegalStateException("Ogrenci bu derse kayitli degil. " + course.getCode());
         }
 
         registrations.get(idx).setGradePoint(gradePoint);

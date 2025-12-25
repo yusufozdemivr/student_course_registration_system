@@ -146,7 +146,6 @@ public class Main {
         System.out.print("Secim: ");
     }
 
-    // ===== ACTIONS =====
 
     private static void addStudent() {
         System.out.print("Ogrenci tipi (1=Student, 2=GraduateStudent): ");
@@ -229,6 +228,32 @@ public class Main {
         }
 
         Course course = new Course(code, name, credit);
+
+        System.out.println("Ders gunu secin: MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY");
+        System.out.print("Gun: ");
+        String dayRaw = readLine().toUpperCase();
+
+        Day day;
+        try {
+            day = Day.valueOf(dayRaw);
+        } catch (Exception e) {
+            guideUser(
+                    "Gecersiz gun: " + dayRaw,
+                    "Ornek format: MONDAY veya FRIDAY"
+            );
+            return;
+        }
+
+        System.out.print("Baslangic saati (0-23): ");
+        int start = readInt();
+
+        System.out.print("Bitis saati (1-24): ");
+        int end = readInt();
+
+        TimeSlot slot = new TimeSlot(day, start, end);
+        course.setTimeSlot(slot);
+
+
         courseCatalog.addCourse(course, ins);
         coursesByCode.put(code, course);
 
@@ -327,7 +352,7 @@ public class Main {
         System.out.println("Tuition (" + s.getId() + "): " + s.calculateTuition());
     }
 
-    // ✅ NEW: Grade point gir / guncelle
+
     private static void setGradePointForStudent() {
         if (!ensureStudentsExist()) return;
         if (!ensureCoursesExist()) return;
@@ -338,18 +363,16 @@ public class Main {
         Course c = askCourseWithHelp();
         if (c == null) return;
 
-        // Kullaniciya ipucu: not girmek icin o derse kayitli olmasi gerek
         System.out.println("Bilgi: Not girebilmek icin ogrencinin bu derse kayitli olmasi gerekir.");
         System.out.print("Grade point gir (0.0 - 4.0): ");
         double gp = readDouble();
 
-        // Student tarafinda kayit kontrolu var
+
         s.setGradePoint(c, gp);
 
         System.out.println("Not guncellendi: Ogrenci " + s.getId() + " -> " + c.getCode() + " = " + gp);
     }
 
-    // ✅ NEW: GPA goster
     private static void showGpa() {
         if (!ensureStudentsExist()) return;
 
@@ -449,3 +472,5 @@ public class Main {
         return String.format("%.2f", value);
     }
 }
+
+

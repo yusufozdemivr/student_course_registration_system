@@ -8,6 +8,8 @@ public class Course {
 
     private Instructor instructor;
 
+    private TimeSlot timeSlot;
+
     public Course(String code, String name, int credit) {
         this.code = code;
         this.name = name;
@@ -32,9 +34,20 @@ public class Course {
 
     public void setInstructor(Instructor instructor) {
         if (instructor == null) {
-            throw new IllegalArgumentException("instructor cannot be null");
+            throw new IllegalArgumentException("Egitmen giriniz, bu kisim bos olamaz.");
         }
         this.instructor = instructor;
+    }
+
+    public TimeSlot getTimeSlot() {
+        return timeSlot;
+    }
+
+    public void setTimeSlot(TimeSlot timeSlot) {
+        if (timeSlot == null) {
+            throw new IllegalArgumentException("Ders icin gerekli zaman araligini giriniz, bu kisim bos olamaz.");
+        }
+        this.timeSlot = timeSlot;
     }
 
     @Override

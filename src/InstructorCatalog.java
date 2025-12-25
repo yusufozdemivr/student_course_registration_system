@@ -5,9 +5,9 @@ public class InstructorCatalog {
     private final List<Instructor> instructors = new ArrayList<>();
 
     public void addInstructor(Instructor instructor) {
-        if (instructor == null) throw new IllegalArgumentException("Instructor cannot be null.");
+        if (instructor == null) throw new IllegalArgumentException("Egitmen kismi bos olamaz. ");
         if (instructors.contains(instructor)) {
-            throw new IllegalStateException("Instructor already exists: " + instructor.getId());
+            throw new IllegalStateException("Egitmen zaten bulunuyor. " + instructor.getId());
         }
         instructors.add(instructor);
     }
@@ -18,10 +18,10 @@ public class InstructorCatalog {
 
     public void removeInstructor(Instructor instructor) {
         if (instructor == null) {
-            throw new IllegalArgumentException("Instructor cannot be null");
+            throw new IllegalArgumentException("Egitmen ismi bos olamaz.");
         }
         if (!instructors.contains(instructor)) {
-            throw new IllegalArgumentException("Instructor not found");
+            throw new IllegalArgumentException("Aranan egitmen bulunamadi.");
         }
         instructors.remove(instructor);
     }
