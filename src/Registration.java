@@ -4,6 +4,7 @@ public class Registration {
 
     private final Student student;
     private final Course course;
+    private double gradePoint;
 
     public Registration(Student student, Course course) {
         if (student == null || course == null) {
@@ -11,6 +12,7 @@ public class Registration {
         }
         this.student = student;
         this.course = course;
+        this.gradePoint = 0.0;
     }
 
     public Student getStudent() {
@@ -19,6 +21,21 @@ public class Registration {
 
     public Course getCourse() {
         return course;
+    }
+
+    public double getGradePoint() {
+        return gradePoint;
+    }
+
+    public void setGradePoint(double gradePoint) {
+        if (gradePoint == 0.0) {
+            this.gradePoint = 0.0;
+            return;
+        }
+        if (gradePoint < 0.0 || gradePoint > 4.0) {
+            throw new IllegalArgumentException("Grade point must be between 0.0 and 4.0");
+        }
+        this.gradePoint = gradePoint;
     }
 
     @Override

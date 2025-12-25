@@ -76,6 +76,39 @@ public class Student implements Registrable {
         return baseFee + getTotalCredits() * feePerCredit;
     }
 
+    public double calculateGPA() {
+        double totalPoints = 0.0;
+        double totalCredits = 0;
+
+        for (Registration r : registrations) {
+            Double gp = r.getGradePoint();
+            if (gp == null) {
+                continue;
+            }
+            int credit = r.getCourse().getCredit();
+            totalPoints += gp * credit;
+            totalCredits += credit;
+        }
+        if (totalPoints == 0) return 0.0;
+        return totalPoints / totalCredits;
+    }
+
+    public void setGradePoint(Course course, double gradePoint) {
+        if (course == null) {
+            throw new IllegalArgumentException("Course cannot be null.");
+        }
+
+        Registration key = new Registration(this, course);
+        int idx = registrations.indexOf(key);
+
+        if (idx < 0) {
+            throw new IllegalStateException("Student is not registered to this course: " + course.getCode());
+        }
+
+        registrations.get(idx).setGradePoint(gradePoint);
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
