@@ -17,10 +17,14 @@ public class InstructorCatalog {
     }
 
     public void removeInstructor(Instructor instructor) {
-        if (instructor == null) throw new IllegalArgumentException("Instructor cannot be null.");
-        if (instructors.contains(instructor)) {
-            throw new IllegalStateException("Instructor already exists: " + instructor.getId());
+        if (instructor == null) {
+            throw new IllegalArgumentException("Instructor cannot be null");
         }
+        if (!instructors.contains(instructor)) {
+            throw new IllegalArgumentException("Instructor not found");
+        }
+        instructors.remove(instructor);
     }
+
 
 }

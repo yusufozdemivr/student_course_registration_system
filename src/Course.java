@@ -53,7 +53,8 @@ public class Course {
     @Override
     public String toString() {
         String ins = (instructor == null) ? "UNASSIGNED" : instructor.getName();
-        return code + " - " + name + " (" + credit + " cr)";
+        return code + " - " + name + " (" + credit + " cr, " + ins + ")";
     }
+
 
 }
