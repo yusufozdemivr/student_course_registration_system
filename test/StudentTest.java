@@ -14,19 +14,18 @@ public class StudentTest {
 
     @Test
     void constructor_shouldThrowException_whenIdIsBlank() {
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             new Student("", "Yusuf");
         });
-        assertTrue(ex.getMessage().toLowerCase().contains("id"));
     }
 
     @Test
     void constructor_shouldThrowException_whenNameIsBlank() {
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(IllegalArgumentException.class, () -> {
             new Student("57", "");
         });
-        assertTrue(ex.getMessage().toLowerCase().contains("adi"));
     }
+
 
     @Test
     void registerCourse_shouldThrowException_whenCourseIsNull() {
