@@ -7,7 +7,6 @@ public class Student implements Registrable {
     private String id;
     private String name;
 
-
     private final List<Registration> registrations = new ArrayList<>();
 
     public Student(String id, String name) {
@@ -34,23 +33,23 @@ public class Student implements Registrable {
             throw new IllegalArgumentException("Ders icin gerekli zaman araligi bos olamaz. " + course.getCode());
         }
 
-        for (Registration r : registrations) {
-            Course existing = r.getCourse();
-
-            if(existing.getTimeSlot() == null) continue;
-
-            if (existing.getTimeSlot().conflictsWith(course.getTimeSlot())) {
-                throw new IllegalArgumentException("Derslerin zamani cakisiyor. " + course.getCode() + " ve " + existing.getCode());
-            }
-        }
-
-
         Registration registration = new Registration(this, course);
-
         if (registrations.contains(registration)) {
             throw new IllegalStateException(
                     "Ogrenci zaten bu derse kayitli: " + course.getCode()
             );
+        }
+
+        for (Registration r : registrations) {
+            Course existing = r.getCourse();
+
+            if (existing.getTimeSlot() == null) continue;
+
+            if (existing.getTimeSlot().conflictsWith(course.getTimeSlot())) {
+                throw new IllegalArgumentException(
+                        "Derslerin zamani cakisiyor. " + course.getCode() + " ve " + existing.getCode()
+                );
+            }
         }
 
         registrations.add(registration);
@@ -64,7 +63,6 @@ public class Student implements Registrable {
 
         Registration registration = new Registration(this, course);
         boolean removed = registrations.remove(registration);
-
 
         if (!removed) throw new IllegalStateException("Gerekli ders bulunamadi. " + course.getCode());
     }
@@ -96,10 +94,7 @@ public class Student implements Registrable {
         double totalCredits = 0;
 
         for (Registration r : registrations) {
-            Double gp = r.getGradePoint();
-            if (gp == null) {
-                continue;
-            }
+            double gp = r.getGradePoint();
             int credit = r.getCourse().getCredit();
             totalPoints += gp * credit;
             totalCredits += credit;
@@ -135,7 +130,6 @@ public class Student implements Registrable {
         }
         return registrations.get(idx).getGradePoint();
     }
-
 
     @Override
     public boolean equals(Object o) {
