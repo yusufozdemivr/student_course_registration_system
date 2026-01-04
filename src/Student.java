@@ -91,17 +91,24 @@ public class Student implements Registrable {
 
     public double calculateGPA() {
         double totalPoints = 0.0;
-        double totalCredits = 0;
+        double totalCredits = 0.0;
 
         for (Registration r : registrations) {
             double gp = r.getGradePoint();
+
+            if (gp == 0.0) {
+                continue;
+            }
+
             int credit = r.getCourse().getCredit();
             totalPoints += gp * credit;
             totalCredits += credit;
         }
-        if (totalPoints == 0) return 0.0;
+
+        if (totalCredits == 0.0) return 0.0;
         return totalPoints / totalCredits;
     }
+
 
     public void setGradePoint(Course course, double gradePoint) {
         if (course == null) {

@@ -212,4 +212,23 @@ public class StudentTest {
     }
 
 
+    @Test
+    void calculateGPA_shouldIgnoreCoursesWithoutGradePoint() {
+        Student student = new Student("1", "Ali");
+
+        Course c1 = new Course("C1", "Math", 3);
+        c1.setTimeSlot(new TimeSlot(Day.MONDAY, 10, 12));
+
+        Course c2 = new Course("C2", "Physics", 4);
+        c2.setTimeSlot(new TimeSlot(Day.TUESDAY, 10, 12));
+
+        student.registerCourse(c1);
+        student.registerCourse(c2);
+
+
+        student.setGradePoint(c1, 4.0);
+
+        assertEquals(4.0, student.calculateGPA(), 0.0001);
+    }
+
 }

@@ -14,9 +14,11 @@ public class TimeSlot {
         if (endHour < 1 || endHour > 24) {
             throw new IllegalArgumentException("Bitis saati 1 ve 24 arasinda olmalidir.");
         }
-        if (startHour >= endHour) {
-            throw new IllegalArgumentException("Başlangıç saati bitiş saatinden daha erken olmalidir.");
+
+        if (endHour <= startHour) {
+            throw new IllegalArgumentException("Bitis saati baslangic saatinden daha gec olmalidir.");
         }
+
         this.day = day;
         this.startHour = startHour;
         this.endHour = endHour;

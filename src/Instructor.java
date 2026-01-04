@@ -7,10 +7,10 @@ public class Instructor {
 
     public Instructor(String id, String name) {
         if (id == null || id.isBlank()) {
-            throw new IllegalArgumentException("Instructor id cannot be null/blank.");
+            throw new IllegalArgumentException("Egitmen ID'si girilmek zorundadir.");
         }
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException("Instructor name cannot be null/blank.");
+            throw new IllegalArgumentException("Egitmen adi girilmek zorundadir.");
         }
         this.id = id;
         this.name = name;

@@ -27,7 +27,7 @@ public class Main {
                     case "3" -> courseMenu();
                     case "0" -> {
                         ReportWriter.writeReport(studentsById, coursesByCode, instructorsById);
-                        System.out.println("Rapor olusturuldu: ogrenci_kayit_raporu.txt");
+                        System.out.println("Rapor olusturuldu.");
                         System.out.println("Cikis yapiliyor...");
                         return;
                     }
@@ -365,7 +365,7 @@ public class Main {
         Course c = askCourseWithHelp();
         if (c == null) return;
 
-        System.out.println("Bilgi: Not girebilmek icin ogrencinin bu derse kayitli olmasi gerekir.");
+        System.out.println("Bilgi: Not girebilmek icin ogrencinin bu derse kayitli olmasi gerekir. FF notu icin 0.01 notunu giriniz.");
         System.out.print("Grade point gir (0.0 - 4.0): ");
         double gp = readDouble();
 

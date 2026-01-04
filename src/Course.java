@@ -11,6 +11,18 @@ public class Course {
     private TimeSlot timeSlot;
 
     public Course(String code, String name, int credit) {
+
+        if (code == null || code.isBlank()) {
+            throw new IllegalArgumentException("Ders kodu bos olamaz.");
+        }
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Ders adi bos olamaz.");
+        }
+        if (credit <= 0) {
+            throw new IllegalArgumentException("Kredi 0 veya negatif olamaz.");
+        }
+
+
         this.code = code;
         this.name = name;
         this.credit = credit;
@@ -68,6 +80,4 @@ public class Course {
         String ins = (instructor == null) ? "UNASSIGNED" : instructor.getName();
         return code + " - " + name + " (" + credit + " cr, " + ins + ")";
     }
-
-
 }
